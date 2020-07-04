@@ -18,9 +18,12 @@ import java.util.Scanner;
 )
 
 public class Track implements Serializable {
+
+    @Id
     @Column(name = "track_track_id")
     private int trackId;
-    @Id
+    @Column(name = "track_tracklist_id")
+    private int tracklistId;
     @Column(name = "track_track_name")
     private String name;
     @Column(name = "track_track_size")
@@ -41,8 +44,9 @@ public class Track implements Serializable {
 
     }
 
-    public Track(int id, String name, long size, long duration) {
-        this.trackId = id;
+    public Track(int trackId, int tracklistId, String name, long size, long duration) {
+        this.tracklistId = tracklistId;
+        this.trackId = trackId;
         this.name = name;
         this.size = size;
         this.duration = duration;
@@ -69,7 +73,18 @@ public class Track implements Serializable {
         }
 
     }
-
+public int getTrackId(){
+        return trackId;
+}
+    public int getTracklistId(){
+        return tracklistId;
+    }
+    public void setTrackId(int trackId){
+        this.trackId = trackId;
+    }
+    public void setTracklistId(int tracklistId){
+        this.tracklistId = tracklistId;
+    }
     public Long getDuration() {
         return duration;
     }
