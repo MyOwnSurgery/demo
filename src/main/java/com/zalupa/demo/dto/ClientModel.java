@@ -18,7 +18,7 @@ public class ClientModel {
     @Autowired
     private TrackRepo trackRepo;
     public Client client;
-    public Tracklist tracklist;
+
     public List<Tracklist> tracklists;
     public List<Track> tracks;
 
