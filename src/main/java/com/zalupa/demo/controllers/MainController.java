@@ -55,7 +55,7 @@ public Client client;
 
 for (int i=0; i < tracklists.size();i++){
     int a = tracklists.get(i).getId();
-    tracks = trackRepo.findByTrackId(a);
+    tracks = trackRepo.findByTracklistId(a);
     for (int j = 0; j < tracks.size();j++){
         tracklists.get(i).addTrack(tracks.get(j));
     }
@@ -70,31 +70,33 @@ for (int i=0; i < tracklists.size();i++){
         return "insert";
     }
     @PostMapping("/result/{id}")
-    public String Add(Model model, @PathVariable(value = "id") int id, @RequestParam String name, @RequestParam long size, @RequestParam long duration){
-        Track track = new Track(id,name,size,duration);
+    public String Add(Model model, @PathVariable(value = "id") int tracklistId, @RequestParam String name, @RequestParam long size, @RequestParam long duration){
+        int id = trackRepo.findMaxTrackId() + 1;
+        System.out.println(id);
+        Track track = new Track(id,tracklistId,name,size,duration);
         trackRepo.save(track);
         return "redirect:/result";
 
 
     }
-    @GetMapping("/result/update/{name}")
-    public String goToUpdate(Model model, @PathVariable(value = "name") String name ){
-        Track track = trackRepo.findByName(name);
+    @GetMapping("/result/update/{trackId}")
+    public String goToUpdate(Model model, @PathVariable(value = "trackId") int trackId ){
+        Track track = trackRepo.findByTrackId(trackId);
         model.addAttribute("track",track);
         return "update";
     }
-    @PostMapping("/result/update/{name}")
-    public String Update(Model model, @PathVariable(value = "name") String name, @RequestParam long size, @RequestParam long duration ){
-        Track track = trackRepo.findByName(name);
+    @PostMapping("/result/update/{trackId}")
+    public String Update(Model model, @PathVariable(value = "trackId") int trackId, @RequestParam String name, @RequestParam long size, @RequestParam long duration ){
+        Track track = trackRepo.findByTrackId(trackId);
         track.setDuration(duration);
         track.setSize(size);
         track.setName(name);
         trackRepo.save(track);
         return "redirect:/result";
     }
-    @PostMapping("/result/remove/{name}")
-    public String Remove(Model model, @PathVariable(value = "name") String name){
-        Track track = trackRepo.findByName(name);
+    @PostMapping("/result/remove/{trackId}")
+    public String Remove(Model model, @PathVariable(value = "trackId") int trackId){
+        Track track = trackRepo.findByTrackId(trackId);
         trackRepo.delete(track);
         return "redirect:/result";
     }

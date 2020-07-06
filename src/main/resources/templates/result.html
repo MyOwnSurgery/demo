@@ -19,8 +19,8 @@
                 <td th:text="${track.name}"></td>
                 <td th:text="${track.duration}"></td>
                 <td th:text="${track.size}"></td>
-                <td> <a th:href = "'/result/update/' + ${track.name}" >Редактировать</a></td>
-                <td> <form th:action = "'/result/remove/'+${track.name}" method = "post" >
+                <td> <a th:href = "'/result/update/' + ${track.trackId}" >Редактировать</a></td>
+                <td> <form th:action = "'/result/remove/'+${track.trackId}" method = "post" >
                     <button type = "submit"> Remove </button>
                 </form> </td>
 
