@@ -19,18 +19,9 @@ import java.util.List;
 
 @Controller
 public class MainController {
-    @Autowired
-    private ClientRepo clientRepo;
-    @Autowired
-    private TracklistRepo tracklistRepo;
-    @Autowired
-    private TrackRepo trackRepo;
+
 public ClientModel dto;
-public Client client;
-    public Tracklist tracklist;
-    public List<Tracklist> tracklists;
-    public List<Track> tracks;
-    public int num;
+
     @GetMapping("/")
     public String home(Model model) {
 
