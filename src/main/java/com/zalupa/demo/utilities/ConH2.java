@@ -1,10 +1,8 @@
-package com.zalupa.demo.models;
+package com.zalupa.demo.utilities;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConH2 {
     /**

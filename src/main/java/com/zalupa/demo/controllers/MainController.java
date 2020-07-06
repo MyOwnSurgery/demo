@@ -1,8 +1,9 @@
 package com.zalupa.demo.controllers;
 
-import com.zalupa.demo.models.Client;
-import com.zalupa.demo.models.Track;
-import com.zalupa.demo.models.Tracklist;
+import com.zalupa.demo.dto.ClientModel;
+import com.zalupa.demo.entities.Client;
+import com.zalupa.demo.entities.Track;
+import com.zalupa.demo.entities.Tracklist;
 import com.zalupa.demo.repo.ClientRepo;
 import com.zalupa.demo.repo.TrackRepo;
 import com.zalupa.demo.repo.TracklistRepo;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -25,7 +25,7 @@ public class MainController {
     private TracklistRepo tracklistRepo;
     @Autowired
     private TrackRepo trackRepo;
-
+public ClientModel dto;
 public Client client;
     public Tracklist tracklist;
     public List<Tracklist> tracklists;
@@ -39,8 +39,7 @@ public Client client;
 
     @PostMapping("/index")
     public String validate(@RequestParam String login, @RequestParam String password, Model model){
-        client = clientRepo.findByLoginAndPassword(login,password);
-        if (client != null) {
+        if (dto.validate(login, password) != null) {
             return "redirect:/result";
         }
         else
@@ -49,20 +48,8 @@ public Client client;
 
     @GetMapping("/result")
     public String output(Model model){
-        model.addAttribute("name", client.getName());
-        int id = client.getID();
-        tracklists = tracklistRepo.findByClientId(id);
-
-for (int i=0; i < tracklists.size();i++){
-    int a = tracklists.get(i).getId();
-    tracks = trackRepo.findByTracklistId(a);
-    for (int j = 0; j < tracks.size();j++){
-        tracklists.get(i).addTrack(tracks.get(j));
-    }
-
-}
-
-        model.addAttribute("tracklists",tracklists);
+        model.addAttribute("name", dto.getUserName());
+        model.addAttribute("tracklists",dto.getUserLists());
         return "/result";
     }
     @GetMapping("/result/{id}")
@@ -71,33 +58,24 @@ for (int i=0; i < tracklists.size();i++){
     }
     @PostMapping("/result/{id}")
     public String Add(Model model, @PathVariable(value = "id") int tracklistId, @RequestParam String name, @RequestParam long size, @RequestParam long duration){
-        int id = trackRepo.findMaxTrackId() + 1;
-        System.out.println(id);
-        Track track = new Track(id,tracklistId,name,size,duration);
-        trackRepo.save(track);
+        dto.addTrack(tracklistId,name,size,duration);
         return "redirect:/result";
 
 
     }
     @GetMapping("/result/update/{trackId}")
     public String goToUpdate(Model model, @PathVariable(value = "trackId") int trackId ){
-        Track track = trackRepo.findByTrackId(trackId);
-        model.addAttribute("track",track);
+        model.addAttribute("track",dto.showTrackInfo(trackId));
         return "update";
     }
     @PostMapping("/result/update/{trackId}")
     public String Update(Model model, @PathVariable(value = "trackId") int trackId, @RequestParam String name, @RequestParam long size, @RequestParam long duration ){
-        Track track = trackRepo.findByTrackId(trackId);
-        track.setDuration(duration);
-        track.setSize(size);
-        track.setName(name);
-        trackRepo.save(track);
+        dto.updateTrackInfo(trackId,name,size,duration);
         return "redirect:/result";
     }
     @PostMapping("/result/remove/{trackId}")
     public String Remove(Model model, @PathVariable(value = "trackId") int trackId){
-        Track track = trackRepo.findByTrackId(trackId);
-        trackRepo.delete(track);
+        dto.deleteTrack(trackId);
         return "redirect:/result";
     }
 

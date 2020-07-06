@@ -7,9 +7,9 @@
 
         <non-jta-data-source>jdbc/service</non-jta-data-source>
 
-        <class>com.zalupa.demo.models.Client</class>
-        <class>com.zalupa.demo.models.Track</class>
-        <class>com.zalupa.demo.models.Tracklist</class>
+        <class>com.zalupa.demo.entities.Client</class>
+        <class>com.zalupa.demo.entities.Track</class>
+        <class>com.zalupa.demo.entities.Tracklist</class>
 
     <properties>
         <property   name="javax.persistence.jdbc.driver"    value="org.h2.Driver"   />

@@ -1,11 +1,10 @@
-package com.zalupa.demo.models;
+package com.zalupa.demo.entities;
 
 import javax.persistence.*;
 
 import javax.xml.bind.annotation.*;
 import java.io.*;
 
-import java.sql.Timestamp;
 import java.util.*;
 @Entity
 @Table(name = "tracklist")

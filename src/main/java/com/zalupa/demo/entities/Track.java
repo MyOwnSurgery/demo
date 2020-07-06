@@ -1,4 +1,4 @@
-package com.zalupa.demo.models;
+package com.zalupa.demo.entities;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Scanner;
 
 @XmlRootElement(name = "track")
