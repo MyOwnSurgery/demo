@@ -2,21 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link rel="stylesheet" href="style2.css"/>
+    <link rel="stylesheet" href="/../static/css/style.css" th:href="@{/css/style.css}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;531;600;700;800;900&amp;display=swap"
           rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,700;1,700&amp;display=swap" rel="stylesheet"/>
-    <title>Главная</title>
+    <title>Редактировать</title>
+
 </head>
 
 <body>
-<div>
-    <form method="post">
-        <input type = "text" name = "name" th:value = "${track.name}" placeholder = "Enter name"><br>
-        <input type = "text" name = "size" th:value = "${track.size}" placeholder = "Enter size"><br>
-        <input type = "text" name = "duration" th:value = "${track.duration}" placeholder = "Enter duration"><br>
-        <button type = "submit">Update</button>
-    </form>
+<div class = "insert">
+
+        <form method="post" class="insert-form">
+          Update
+
+            <input required type = "text" name = "name" th:value = "${track.name}" placeholder = "Enter name" class="insert-form__input input" ><br>
+            <input required type = "text" name = "size" th:value = "${track.size}" placeholder = "Enter size" class="insert-form__input input"><br>
+            <input required type = "text" name = "duration" th:value = "${track.duration}" placeholder = "Enter duration" class="insert-form__input input"><br>
+            <button type = "submit" class="insert-form__button button"> Редактировать </button> <br>
+            <message th:text="${upError}" class="log-error"></message>
+
+
+        </form>
+
+
+
 </div>
 </body>
 </html>

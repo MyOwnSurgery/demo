@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link rel="stylesheet" href="style2.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../src/main/resources/static/css/style.css" th:href="@{css/style.css}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;531;600;700;800;900&amp;display=swap"
           rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,700;1,700&amp;display=swap" rel="stylesheet"/>
@@ -10,26 +10,32 @@
 </head>
 
 <body>
-    <div class="login-header header">
-        <h1 class="title">Вход в систему</h1>
-    </div>
-    <div class="login">
-        <form styleClass="login-form" action = "/index" method = post>
-            Пожалуйста, введите логин и пароль
-            <div class="login-input-wrapper">
-                <label class="login-form-label label">Логин
-                        <input type = "text" name = "login" placeholder = "Enter login">
-                </label>
-                <label class="login-form-label label">Пароль
-                    <input type = "text" name = "password" placeholder = "Enter password">
-                </label>
-                <label>
-                    <button type = "submit" class="login-form-button button"> Submit </button>
-                </label>
-            </div>
+<div class="login-header header">
+    <h1 class="title">Вход в систему</h1>
+</div>
+<div class="login">
+    <form class="login-form" action = "/index" method = post>
+        Пожалуйста, введите логин и пароль
+        <div class="login-input-wrapper">
+            <label class="login-form-label label">Логин
+                <input required type = "text" name = "login" placeholder = "Enter login" class="login-form__input input">
+            </label>
+            <label class="login-form-label label">Пароль
+                <input secret required type = "text" name = "password" placeholder = "Enter password" class="login-form__input input">
+            </label>
+        </div>
+
+                <button type = "submit" class="login-form-button button"> Войти </button>
+
+        <message th:text="${error}" class="log-error"></message>
+
+
 
         </form>
 
+
     </div>
+
 </body>
+
 </html>

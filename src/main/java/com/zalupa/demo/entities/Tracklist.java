@@ -23,6 +23,7 @@ public class Tracklist implements Serializable {
     @Column(name = "TRACKLIST_TRACKLIST_id")
     private int id;
 
+
     public Client getClient() {
         return client;
     }
@@ -49,6 +50,10 @@ public class Tracklist implements Serializable {
     public int getId() {
         return id;
     }
+    public void setId(int id){
+        this.id = id;
+    }
+
 
 
     public List<Track> getTracks() {
@@ -74,6 +79,10 @@ public class Tracklist implements Serializable {
             System.exit(0);
         }
 
+
+    }
+    public void setTracks(List<Track> tracks){
+        this.tracks = tracks;
     }
 
 

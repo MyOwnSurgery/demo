@@ -3,7 +3,7 @@
     padding: 0;
 
     font-family: 'PT sans', serif;
-    background: gray;
+    background: lightblue;
 
 }
 
@@ -145,6 +145,11 @@ a:hover {
     background: rgba(255, 50, 100, 0.4);
     color: darkred;
 }
+.log-error{
+    text-align: center;
+    color: darkred;
+    background: #F0EFFF;
+}
 
 .main-header {
     display: flex;
@@ -173,9 +178,16 @@ a:hover {
 
 .main-table-head-row > th,
 .main-table-row > td {
+    transition-duration: 0.3s;
     text-align: center;
     margin: 0 10px;
     padding: 10px;
+}
+.main-table-row:hover {
+    cursor: pointer;
+    box-shadow: 0 0 2px 1px lightsteelblue;
+    transform: scale(1.02);
+
 }
 .main-header__logout {
     margin: 0 50px 0 30px;
@@ -201,22 +213,25 @@ a:hover {
     transition-duration: 0.3s;
 }
 
-.main-table__row:hover {
-    cursor: pointer;
-    box-shadow: 0 0 2px 1px lightsteelblue;
-    transform: scale(1.02);
 
-}
+
+
 
 .main-table__insert-form {
-    width: fit-content;
-    height: fit-content;
+    margin-right:300px;
+    align-content: center;
+
 
 }
 
 .main-table__insert-button {
     width: 230px;
     text-align: center;
+    border: 2px solid white;
+    background: lightblue;
+    padding: .2em .75em;
+    text-decoration: none;
+    margin: auto;
 
 }
 
@@ -240,7 +255,18 @@ a:hover {
     width: 120px;
     text-align: center;
 }
+.main-form {
+    width: fit-content;
+    height: fit-content;
+    margin: 30px auto;
+}
+.ref{
+    border: 2px solid white;
+    background: lightblue;
+    padding: .2em .75em;
+    text-decoration: none;
 
+}
 .insert {
     display: flex;
     justify-content: space-around;

@@ -1,0 +1,60 @@
+package com.zalupa.demo.converters;
+
+
+import com.zalupa.demo.dto.ClientDTO;
+import com.zalupa.demo.dto.TrackDTO;
+
+import com.zalupa.demo.entities.Client;
+import com.zalupa.demo.entities.Track;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
+@Component
+public class TrackConverter{
+
+
+    public TrackDTO convertToDTO(Track track) {
+       // ModelMapper modelMapper = new ModelMapper();
+        //return modelMapper.map(track, TrackDTO.class);
+        TrackDTO dto = new TrackDTO();
+        dto.setTracklistId(track.getTracklistId());
+        dto.setId(track.getTrackId());
+        dto.setDuration(track.getDuration());
+        dto.setName(track.getName());
+        dto.setSize(track.getSize());
+        return dto;
+    }
+    public Track convertToEntity(TrackDTO track) {
+       // ModelMapper modelMapper = new ModelMapper();
+       // return modelMapper.map(track, Track.class);
+        Track entity = new Track();
+        entity.setTracklistId(track.getTracklistId());
+        entity.setTrackId(track.getId());
+        entity.setDuration(track.getDuration());
+        entity.setName(track.getName());
+        entity.setSize(track.getSize());
+        return entity;
+    }
+
+
+    public List<Track> convertListToEntity(List<TrackDTO> dtoList){
+        List<Track> entityList = new ArrayList<Track>();
+        for (TrackDTO dto:dtoList){
+            Track entity = convertToEntity(dto);
+            entityList.add(entity);
+        }
+        return entityList;
+
+    }
+    public List<TrackDTO> convertListToDTO(List<Track> entityList){
+        List<TrackDTO> dtoList = new ArrayList<TrackDTO>();
+        for (Track entity: entityList){
+            TrackDTO dto = convertToDTO(entity);
+            dtoList.add(dto);
+        }
+        return dtoList;
+
+    }
+}

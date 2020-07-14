@@ -13,8 +13,7 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "CLIENT")
 
-@XmlRootElement(name = "client")
-@XmlAccessorType(XmlAccessType.FIELD)
+
 public class Client {
 
     @Id
@@ -24,7 +23,7 @@ public class Client {
     private String login;
     @Column(name = "CLIENT_NAME")
     private String name;
-    @XmlTransient
+
     @Column(name = "CLIENT_PASSWORD")
     private String password;
 
