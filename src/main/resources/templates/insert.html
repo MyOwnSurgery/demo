@@ -5,20 +5,22 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;531;600;700;800;900&amp;display=swap"
           rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,700;1,700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,700;1,700&amp;display=swap"
+          rel="stylesheet"/>
     <title>Добавить</title>
     <link rel="stylesheet" href="/../static/css/style.css" th:href="@{/css/style.css}">
 </head>
 
 <body>
-<div class = "insert">
+<div class="insert">
     <form method="post" class="insert-form">
-        Add
+        Добавить
 
-            <input required type = "text" name = "name" placeholder = "Enter name" class="insert-form__input input" ><br>
-        <input required type = "text" name = "size" placeholder = "Enter size" class="insert-form__input input"><br>
-        <input required type = "text" name = "duration" placeholder = "Enter duration" class="insert-form__input input"><br>
-        <button type = "submit" class="insert-form__button button"> Добавить </button> <br>
+        <input required type="text" name="name" placeholder="Enter name" class="insert-form__input input"><br>
+        <input required type="text" name="size" placeholder="Enter size" class="insert-form__input input"><br>
+        <input required type="text" name="duration" placeholder="Enter duration" class="insert-form__input input"><br>
+        <button type="submit" class="insert-form__button button"> Добавить</button>
+        <br>
         <message th:text="${addError}" class="log-error"></message>
 
 

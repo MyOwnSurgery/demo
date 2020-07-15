@@ -2,70 +2,72 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <link rel="stylesheet" type="text/css" href="../../../src/main/resources/static/css/style.css" th:href="@{css/style.css}">
+    <link rel="stylesheet" type="text/css" href="../../../src/main/resources/static/css/style.css"
+          th:href="@{css/style.css}">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;531;600;700;800;900&amp;display=swap"
           rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,700;1,700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,700;1,700&amp;display=swap"
+          rel="stylesheet"/>
     <title>Главная</title>
 </head>
 
 
 <body>
-    <div class="main-header header">
-        <h1 class="main-header__title title">Ваши треклисты</h1>
-        <form class="main-header__wrapper">
+<div class="main-header header">
+    <h1 class="main-header__title title">Ваши треклисты</h1>
+    <form class="main-header__wrapper">
         <h2 th:text="'Привет, '+ ${name} +'!'" class="main-header__greeting"/>
-            </form>
-    </div>
-    <div class="main-wrapper">
-        <div th:each="tracklist : ${tracklists}">
-    <table  class = "main-table table">
-
-        <div class="main-table-wrapper">
-            <tr class="main-table-head-row">
-                <th>Название</th>
-                <th>Длительность</th>
-                <th>Размер</th>
-
-            </tr>
-
-            <tr th:each="track:${tracklist.tracks}" class="main-table-row">
-
-                <td th:text="${track.name}" >  </td>
-
-            <td th:text="${track.duration}"> </td>
-
-                <td th:text="${track.size}">  </td>
-                <td> <a th:href = "'/result/update/' + ${track.id}" class="ref">
-                    Редактировать
-                </a></td>
-                <td> <form th:action = "'/result/remove/'+${track.id}" method = "post" >
-                    <button type = "submit">
-                        Удалить
-                    </button>
-                </form> </td>
-            </tr>
-        </div>
-    </table>
-            <form class="main-table__insert-form"><a th:href = "'/result/' + ${tracklist.id}" class = "ref">Добавить</a></form>
-        </div>
-
-
-
-        </table>
-
-    </div>
-    <form class="main-form" action="result.xml" method="get">
-        <a th:href="'/download'" class="ref">Скачать XML файл</a>
     </form>
+</div>
+<div class="main-wrapper">
+    <div th:each="tracklist : ${tracklists}">
+        <table class="main-table table">
+
+            <div class="main-table-wrapper">
+                <tr class="main-table-head-row">
+                    <th>Название</th>
+                    <th>Длительность</th>
+                    <th>Размер</th>
+
+                </tr>
+
+                <tr th:each="track:${tracklist.tracks}" class="main-table-row">
+
+                    <td th:text="${track.name}"></td>
+
+                    <td th:text="${track.duration}"></td>
+
+                    <td th:text="${track.size}"></td>
+                    <td><a th:href="'/result/update/' + ${track.id}" class="ref">
+                        Редактировать
+                    </a></td>
+                    <td>
+                        <form th:action="'/result/remove/'+${track.id}" method="post">
+                            <button type="submit">
+                                Удалить
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </div>
+        </table>
+        <form class="main-table__insert-form"><a th:href="'/result/' + ${tracklist.id}" class="ref">Добавить</a></form>
+    </div>
 
 
+    </table>
 
-    <form th:action = "'/upload'" method="post" enctype="multipart/form-data" class="main-form"> <input type="file" th:name = "file">
-        <button type = "submit" class="main-form-button button"> Загрузить треклист с помощью XML </button>
-        <message th:text="${xmlError}" class="log-error"></message></form>
+</div>
+<form class="main-form" action="result.xml" method="get">
+    <a th:href="'/download'" class="ref">Скачать XML файл</a>
+</form>
 
 
+<form th:action="'/upload'" method="post" enctype="multipart/form-data" class="main-form"><input type="file"
+                                                                                                 th:name="file">
+    <button type="submit" class="main-form-button button"> Загрузить треклист с помощью XML</button>
+    <message th:text="${xmlError}" class="log-error"></message>
+</form>
 
 
 </body>

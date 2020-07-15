@@ -1,28 +1,18 @@
-package com.zalupa.demo.Service;
+package com.zalupa.demo.service;
 
 
 import com.zalupa.demo.converters.ClientConverter;
 import com.zalupa.demo.converters.TrackConverter;
-import com.zalupa.demo.dto.ClientDTO;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.entities.Track;
 import com.zalupa.demo.repo.ClientRepo;
 import com.zalupa.demo.repo.TrackRepo;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-
-import java.io.Serializable;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class ServiceTest {
     @Autowired
@@ -39,10 +29,11 @@ class ServiceTest {
     TrackConverter trackConverter;
     @Autowired
     ClientConverter clientConverter;
+
     @Test
     void validate() {
-        service.validate("user1","1");
-        Mockito.verify(clientRepo, Mockito.times(1)).findByLoginAndPassword("user1","1");
+        service.validate("user1", "1");
+        Mockito.verify(clientRepo, Mockito.times(1)).findByLoginAndPassword("user1", "1");
 
     }
 
@@ -52,9 +43,7 @@ class ServiceTest {
 
     @Test
     void addTrack() {
-        String size = "200";
-        String duration = "200";
-        boolean is = service.addTrack(3,"track",size,duration);
+        boolean is = service.addTrack(3, "track", "200", "200");
         Assert.assertTrue(is);
         Mockito.verify(trackConverter, Mockito.times(1)).convertToEntity(ArgumentMatchers.any(TrackDTO.class));
         Mockito.verify(trackRepo, Mockito.times(1)).save(ArgumentMatchers.any(Track.class));

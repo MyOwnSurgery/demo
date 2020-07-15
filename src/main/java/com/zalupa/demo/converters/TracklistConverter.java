@@ -1,14 +1,13 @@
 package com.zalupa.demo.converters;
-
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.dto.TracklistDTO;
 import com.zalupa.demo.entities.Track;
 import com.zalupa.demo.entities.Tracklist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
+
 @Component
 public class TracklistConverter {
     @Autowired

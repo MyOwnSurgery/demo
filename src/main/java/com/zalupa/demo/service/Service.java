@@ -1,4 +1,4 @@
-package com.zalupa.demo.Service;
+package com.zalupa.demo.service;
 
 import com.zalupa.demo.converters.ClientConverter;
 import com.zalupa.demo.converters.TrackConverter;
@@ -15,97 +15,101 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlTransient;
 import java.io.*;
 import java.util.List;
 
 @Component
 public class Service {
-    public Client client;
-    public ClientDTO clientDTO;
-    public Tracklist tracklist;
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     private ClientRepo clientRepo;
+
     @Autowired
     private TracklistRepo tracklistRepo;
 
     @Autowired
     private TrackRepo trackRepo;
 
-    public List<TrackDTO> tracks;
-    public List<TracklistDTO> tracklists;
+    @Autowired
+    private ClientConverter clientConverter;
 
     @Autowired
-    public ClientConverter clientConverter;
+    private TracklistConverter tracklistConverter;
 
     @Autowired
-    public TracklistConverter tracklistConverter;
+    private TrackConverter trackConverter;
 
-    @Autowired
-    public TrackConverter trackConverter;
+
+    public ClientDTO getUser() {
+        if (session != null) {
+            return (ClientDTO) session.getAttribute("user");
+        } else return null;
+    }
+
+    public void setUser(ClientDTO user) {
+        session.setAttribute("user", user);
+    }
 
     public ClientDTO validate(String login, String password) {
-
-        client = clientRepo.findByLoginAndPassword(login, password);
-        if (client != null)
-            clientDTO = clientConverter.convertToDTO(client);
-
-        return clientDTO;
+        Client client = clientRepo.findByLoginAndPassword(login, password);
+        if (client != null) {
+            ClientDTO clientDTO = clientConverter.convertToDTO(client);
+            setUser(clientDTO);
+            return clientDTO;
+        }
+        else return null;
     }
 
     public String getUserName() {
+        ClientDTO clientDTO = getUser();
         return clientDTO.getName();
     }
 
     public boolean check(String name, String size, String duration) {
-
+        long sizeVal;
+        long durVal;
         try {
-            long sizeVal = Long.valueOf(size);
-            long durVal = Long.valueOf(duration);
+            sizeVal = Long.valueOf(size);
+            durVal = Long.valueOf(duration);
         } catch (IllegalArgumentException e) {
             return false;
         }
-        if ((name != "") && ((Long.valueOf(size) > 0) && (Long.valueOf(size) < 10000)) && ((Long.valueOf(duration) > 0) && (Long.valueOf(duration) < 10000))) {
+        if ((name != "") && ((sizeVal > 0) && (sizeVal < 10000)) && ((durVal > 0) && (durVal < 10000))) {
             return true;
         } else return false;
     }
 
     public List<TracklistDTO> getUserLists() {
-        tracklists = tracklistConverter.convertListToDTO(tracklistRepo.findByClientId(clientDTO.getID()));
-
+        ClientDTO clientDTO = getUser();
+        List<TracklistDTO> tracklists = tracklistConverter.convertListToDTO(tracklistRepo.findByClientId(clientDTO.getID()));
+        List<TrackDTO> tracks;
         for (int i = 0; i < tracklists.size(); i++) {
             int a = tracklists.get(i).getId();
             tracks = trackConverter.convertListToDTO(trackRepo.findByTracklistId(a));
             for (int j = 0; j < tracks.size(); j++) {
                 tracklists.get(i).addTrack(tracks.get(j));
             }
-
         }
         clientDTO.setTracklists(tracklists);
         return tracklists;
     }
 
     public boolean addTrack(int tracklistId, String name, String size, String duration) {
-
         if (!check(name,size,duration)){
-
             return false;
-
         }
         else {
-
-
             TrackDTO track = new TrackDTO(tracklistId, name, Long.valueOf(size), Long.valueOf(duration));
             track.setId(trackRepo.findMaxTrackId() + 1);
-
             trackRepo.save(trackConverter.convertToEntity(track));
             return true;
-
         }
     }
 
@@ -116,9 +120,7 @@ public class Service {
 
     public boolean updateTrackInfo(int trackId, String name, String size, String duration) {
         if (!check(name,size,duration)){
-
             return false;
-
         }
         else {
             TrackDTO track = trackConverter.convertToDTO(trackRepo.findByTrackId(trackId));
@@ -136,31 +138,25 @@ public class Service {
     }
 
     public void writeXML() throws JAXBException, FileNotFoundException {
+        ClientDTO clientDTO = getUser();
         FileOutputStream stream = new FileOutputStream("src/main/resources/templates/outputFile.xml");
-
         JAXBContext context = JAXBContext.newInstance(ClientDTO.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
         marshaller.marshal(clientDTO, stream);
-
-
     }
 
     public boolean readXML(MultipartFile file) throws IOException, JAXBException {
+        ClientDTO clientDTO = getUser();
         try {
             if (!file.isEmpty()) {
-
                 byte[] bytes = file.getBytes();
-
                 BufferedOutputStream stream =
                         new BufferedOutputStream(new FileOutputStream(new File("-uploaded")));
                 stream.write(bytes);
-
                 stream.close();
-
-
             }
-            else{
+            else {
                 return false;
             }
             File prFile = new File("-uploaded");
@@ -168,7 +164,7 @@ public class Service {
             Unmarshaller unmarshaller = context.createUnmarshaller();
             TracklistDTO tracklist = (TracklistDTO) unmarshaller.unmarshal((File) prFile);
             for (TrackDTO track : tracklist.getTracks()) {
-                if ((check(track.getName(), track.getSize().toString(), track.getDuration().toString())) == false) {
+                if (!check(track.getName(), track.getSize().toString(), track.getDuration().toString())) {
                     return false;
                 }
             }
@@ -183,8 +179,6 @@ public class Service {
             trackRepo.save(trackConverter.convertToEntity(track));
         }
 */
-
         return true;
-
     }
 }

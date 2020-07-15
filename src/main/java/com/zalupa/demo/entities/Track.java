@@ -33,13 +33,11 @@ public class Track implements Serializable {
 
     public Track(String name, Long size, Long duration) {
         this.name = name;
-
-        if (size > 0)           // Проверяем корректность значений по заданию
-            this.size = size;
-        if (duration > 0)
-            this.duration = duration;
+        this.size = size;
+        this.duration = duration;
     }
-    public Track(){
+
+    public Track() {
 
     }
 
@@ -54,6 +52,7 @@ public class Track implements Serializable {
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -61,31 +60,34 @@ public class Track implements Serializable {
     public Long getSize() {
         return size;
     }
+
     public void setSize(Long size) {
-
-
-            this.size = size;
-
-
+        this.size = size;
     }
-public int getTrackId(){
+
+    public int getTrackId() {
         return trackId;
-}
-    public int getTracklistId(){
+    }
+
+    public int getTracklistId() {
         return tracklistId;
     }
-    public void setTrackId(int trackId){
+
+    public void setTrackId(int trackId) {
         this.trackId = trackId;
     }
-    public void setTracklistId(int tracklistId){
+
+    public void setTracklistId(int tracklistId) {
         this.tracklistId = tracklistId;
     }
+
     public Long getDuration() {
         return duration;
     }
+
     public void setDuration(Long duration) {
 
-            this.duration = duration;
+        this.duration = duration;
 
 
     }
@@ -99,7 +101,7 @@ public int getTrackId(){
         out.close();
     }
 
-    public static Track load(String name) throws IOException{
+    public static Track load(String name) throws IOException {
         Scanner in = new Scanner(name);
         String n = in.next();
         long p = in.nextInt();

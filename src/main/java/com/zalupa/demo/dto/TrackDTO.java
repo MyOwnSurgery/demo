@@ -7,6 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.Max;
+
 @XmlRootElement(name = "track")
 public class TrackDTO {
     private int id;
@@ -22,52 +23,57 @@ public class TrackDTO {
     public TrackDTO(int tracklistId, String name, Long size, Long duration) {
         this.tracklistId = tracklistId;
         this.name = name;
-
-
         this.size = size;
-
         this.duration = duration;
     }
 
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public Long getSize() {
         return size;
     }
+
     public void setSize(Long size) {
-            this.size = size;
+        this.size = size;
     }
-    public int getId(){
+
+    public int getId() {
         return id;
     }
-    public int getTracklistId(){
+
+    public int getTracklistId() {
         return tracklistId;
     }
-    public void setId(int id){
+
+    public void setId(int id) {
         this.id = id;
     }
-    public void setTracklistId(int tracklistId){
+
+    public void setTracklistId(int tracklistId) {
         this.tracklistId = tracklistId;
     }
+
     public Long getDuration() {
         return duration;
     }
+
     public void setDuration(Long duration) {
-            this.duration = duration;
+        this.duration = duration;
     }
+
     public TrackDTO(String name, Long size, Long duration) {
         this.name = name;
-
-
-            this.size = size;
-
-            this.duration = duration;
+        this.size = size;
+        this.duration = duration;
     }
-    public TrackDTO(){
+
+    public TrackDTO() {
 
     }
 
