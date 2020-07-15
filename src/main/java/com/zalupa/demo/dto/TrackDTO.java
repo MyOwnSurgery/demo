@@ -19,7 +19,14 @@ public class TrackDTO {
 
     private long duration;
 
-    public TrackDTO(int tracklistId, String name, Long valueOf, Long valueOf1) {
+    public TrackDTO(int tracklistId, String name, Long size, Long duration) {
+        this.tracklistId = tracklistId;
+        this.name = name;
+
+
+        this.size = size;
+
+        this.duration = duration;
     }
 
     public String getName() {
@@ -55,9 +62,9 @@ public class TrackDTO {
     public TrackDTO(String name, Long size, Long duration) {
         this.name = name;
 
-        if (size > 0)           // Проверяем корректность значений по заданию
+
             this.size = size;
-        if (duration > 0)
+
             this.duration = duration;
     }
     public TrackDTO(){

@@ -62,10 +62,11 @@
 
 
     <form th:action = "'/upload'" method="post" enctype="multipart/form-data" class="main-form"> <input type="file" th:name = "file">
-        <button type = "submit" class="main-form-button button"> Загрузить треклист с помощью XML </button></form>
+        <button type = "submit" class="main-form-button button"> Загрузить треклист с помощью XML </button>
+        <message th:text="${xmlError}" class="log-error"></message></form>
 
 
-    <p th:text="${xmlError}"/>
+
 
 </body>
 

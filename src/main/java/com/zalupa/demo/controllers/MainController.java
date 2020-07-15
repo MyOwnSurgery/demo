@@ -1,12 +1,9 @@
 package com.zalupa.demo.controllers;
-import com.zalupa.demo.converters.Converter;
+import com.zalupa.demo.Service.Service;
 import com.zalupa.demo.converters.ClientConverter;
-import com.zalupa.demo.dto.ClientDTO;
 import com.zalupa.demo.dto.TrackDTO;
-import com.zalupa.demo.entities.Client;
 import com.zalupa.demo.repo.ClientRepo;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -14,26 +11,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import javax.xml.bind.JAXBException;
 import java.io.*;
 
 @Controller
 public class MainController {
-    @Autowired
-    private ClientRepo clientRepo;
-    @Autowired
-    private ModelMapper modelMapper;
 
 @Autowired
-public ClientConverter clientConverter;
-@Autowired
-public ClientDTO dto;
-public Client client;
+public Service service;
+
 public boolean logError;
 public boolean upError;
 public boolean addError;
@@ -56,7 +45,7 @@ public boolean xmlError;
     public String validate(@RequestParam String login, @RequestParam String password, Model model){
 
 
-        if (dto.validate(login,password) != null) {
+        if (service.validate(login,password) != null) {
             return "redirect:/result";
         }
         else {
@@ -71,8 +60,8 @@ public boolean xmlError;
         if (xmlError == true){
             model.addAttribute("xmlError", "Smth wrong with your file");
         }
-        model.addAttribute("name", dto.getUserName());
-        model.addAttribute("tracklists",dto.getUserLists());
+        model.addAttribute("name", service.getUserName());
+        model.addAttribute("tracklists",service.getUserLists());
 
         return "/result";
     }
@@ -87,13 +76,13 @@ public boolean xmlError;
     @PostMapping("/result/{id}")
     public String Add(Model model, @PathVariable(value = "id") int tracklistId, @RequestParam String name, @RequestParam String size, @RequestParam String duration){
 
-        if (dto.check(name,size,duration)){
+        if (service.addTrack(tracklistId,name,size,duration)){
             addError = false;
-            TrackDTO trackDTO = new TrackDTO(tracklistId,name,Long.valueOf(size),Long.valueOf(duration));
-            dto.addTrack(trackDTO);
+
             return "redirect:/result";
         }
         else {
+
             addError = true;
             return goToInsert(model,tracklistId);
         }
@@ -103,7 +92,7 @@ public boolean xmlError;
     @GetMapping("/result/update/{trackId}")
     public String goToUpdate(Model model, @PathVariable(value = "trackId") int trackId){
 
-        model.addAttribute("track",dto.showTrackInfo(trackId));
+        model.addAttribute("track",service.showTrackInfo(trackId));
         model.addAttribute("upError", "");
         if (upError == true){
             model.addAttribute("upError","Wrong data");
@@ -114,10 +103,10 @@ public boolean xmlError;
     @PostMapping("/result/update/{trackId}")
     public String Update(Model model, @PathVariable(value = "trackId") int trackId, @RequestParam String name, @RequestParam String size, @RequestParam String duration){
 
-        if (dto.check(name,size,duration)){
+        if (service.check(name,size,duration)){
             upError = false;
 
-            dto.updateTrackInfo(trackId,name,Long.valueOf(size),Long.valueOf(duration));
+            service.updateTrackInfo(trackId,name,Long.valueOf(size),Long.valueOf(duration));
             return "redirect:/result";
         }
         else {
@@ -130,23 +119,26 @@ public boolean xmlError;
     }
     @PostMapping("/result/remove/{trackId}")
     public String Remove(Model model, @PathVariable(value = "trackId") int trackId){
-        dto.deleteTrack(trackId);
+        service.deleteTrack(trackId);
         return "redirect:/result";
     }
     @PostMapping("/upload")
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public String handleFileUpload( Model model, @RequestParam("file") MultipartFile file) throws IOException, JAXBException {
-        try {
-            dto.readXML(file);
-        }
-        catch (Exception e){
-            xmlError = true;
-        }
+
+           if (service.readXML(file) == false){
+               xmlError = true;
+           }
+           else{
+               xmlError = false;
+           }
+
+
         return "redirect:/result";
     }
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public ResponseEntity<Object> downloadFile() throws IOException, JAXBException {
-        dto.writeXML();
+        service.writeXML();
         String filename = "C:/Users/Алексей/Desktop/demo/src/main/resources/templates/outputFile.xml";
         File file = new File(filename);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));

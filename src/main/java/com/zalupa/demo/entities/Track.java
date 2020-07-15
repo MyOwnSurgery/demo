@@ -63,13 +63,9 @@ public class Track implements Serializable {
     }
     public void setSize(Long size) {
 
-        if (size > 0){
+
             this.size = size;
-        }
-        else{
-            System.out.println("Invalid size");
-            System.exit(0);
-        }
+
 
     }
 public int getTrackId(){
@@ -88,13 +84,9 @@ public int getTrackId(){
         return duration;
     }
     public void setDuration(Long duration) {
-        if (duration > 0){
+
             this.duration = duration;
-        }
-        else{
-            System.out.println("Invalid duration");
-            System.exit(0);
-        }
+
 
     }
 
