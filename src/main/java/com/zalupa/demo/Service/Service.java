@@ -114,12 +114,20 @@ public class Service {
         return track;
     }
 
-    public void updateTrackInfo(int trackId, String name, long size, long duration) {
-        TrackDTO track = trackConverter.convertToDTO(trackRepo.findByTrackId(trackId));
-        track.setDuration(duration);
-        track.setSize(size);
-        track.setName(name);
-        trackRepo.save(trackConverter.convertToEntity(track));
+    public boolean updateTrackInfo(int trackId, String name, String size, String duration) {
+        if (!check(name,size,duration)){
+
+            return false;
+
+        }
+        else {
+            TrackDTO track = trackConverter.convertToDTO(trackRepo.findByTrackId(trackId));
+            track.setDuration(Long.valueOf(duration));
+            track.setSize(Long.valueOf(size));
+            track.setName(name);
+            trackRepo.save(trackConverter.convertToEntity(track));
+            return true;
+        }
     }
 
     public void deleteTrack(int trackId) {

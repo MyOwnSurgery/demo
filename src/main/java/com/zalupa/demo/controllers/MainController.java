@@ -103,10 +103,8 @@ public boolean xmlError;
     @PostMapping("/result/update/{trackId}")
     public String Update(Model model, @PathVariable(value = "trackId") int trackId, @RequestParam String name, @RequestParam String size, @RequestParam String duration){
 
-        if (service.check(name,size,duration)){
+        if (service.updateTrackInfo(trackId,name,size,duration)){
             upError = false;
-
-            service.updateTrackInfo(trackId,name,Long.valueOf(size),Long.valueOf(duration));
             return "redirect:/result";
         }
         else {
