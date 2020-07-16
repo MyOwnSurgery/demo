@@ -46,7 +46,5 @@ public class TrackController {
     public boolean saveTracks(List<TrackDTO> tracks, int id) {
         return service.save(tracks, id);
     }
-    public void backUp(int id){
-        tracklistController.deleteTracklist(id);
-    }
+
 }

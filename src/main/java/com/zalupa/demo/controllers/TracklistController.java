@@ -28,14 +28,17 @@ public class TracklistController {
         return tracklists;
     }
 
-    public boolean getTracklistInXML(MultipartFile file) {
+    public boolean setTracklistFromXML(MultipartFile file) {
         TracklistDTO tracklistDTO = service.readXML(file);
         if (checkTracklist(tracklistDTO)) {
-            if (service.save(tracklistDTO, clientController.getUser()) && trackController.saveTracks(tracklistDTO.getTracks(), tracklistDTO.getId())) {
-                return true;
-            } else {
+            if (!service.save(tracklistDTO, clientController.getUser())) {
                 return false;
             }
+            if (!trackController.saveTracks(tracklistDTO.getTracks(), tracklistDTO.getId())) {
+                service.delete(tracklistDTO.getId());
+                return false;
+            }
+                return true;
         } else
             return false;
     }
@@ -44,7 +47,6 @@ public class TracklistController {
 
         return service.checkTracklistItself(tracklistDTO) && trackController.checkTracks(tracklistDTO.getTracks());
     }
- public void deleteTracklist(int id){
-        service.delete(id);
- }
+
+
 }

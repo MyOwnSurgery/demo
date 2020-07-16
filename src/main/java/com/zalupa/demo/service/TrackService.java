@@ -94,7 +94,6 @@ public class TrackService {
         }
         catch (Exception e){
             e.printStackTrace();
-            trackController.backUp(id);
             return false;
         }
         return true;
