@@ -19,6 +19,7 @@ import java.util.Scanner;
 public class Track implements Serializable {
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "track_track_id")
     private int trackId;
     @Column(name = "track_tracklist_id")

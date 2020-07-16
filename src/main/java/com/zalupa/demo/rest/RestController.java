@@ -1,6 +1,8 @@
-package com.zalupa.demo.controllers;
+package com.zalupa.demo.rest;
 
-import com.zalupa.demo.service.Service;
+import com.zalupa.demo.controllers.ClientController;
+import com.zalupa.demo.controllers.TrackController;
+import com.zalupa.demo.controllers.TracklistController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -15,10 +17,15 @@ import javax.xml.bind.JAXBException;
 import java.io.*;
 
 @Controller
-public class MainController {
+public class RestController {
 
     @Autowired
-    private Service service;
+    private ClientController clientController;
+    @Autowired
+    private TracklistController tracklistController;
+    @Autowired
+    private TrackController trackController;
+
 
     private boolean logError;
     private boolean upError;
@@ -40,7 +47,7 @@ public class MainController {
 
     @PostMapping("/index")
     public String validate(@RequestParam String login, @RequestParam String password, Model model) {
-        if (service.validate(login, password) != null) {
+        if (clientController.validate(login, password) != null) {
             return "redirect:/result";
         } else {
             logError = true;
@@ -54,8 +61,8 @@ public class MainController {
         if (xmlError) {
             model.addAttribute("xmlError", "Smth wrong with your file");
         }
-        model.addAttribute("name", service.getUserName());
-        model.addAttribute("tracklists", service.getUserLists());
+        model.addAttribute("name", clientController.getUserName());
+        model.addAttribute("tracklists", clientController.getUserLists());
 
         return "/result";
     }
@@ -71,7 +78,7 @@ public class MainController {
 
     @PostMapping("/result/{id}")
     public String Add(Model model, @PathVariable(value = "id") int tracklistId, @RequestParam String name, @RequestParam String size, @RequestParam String duration) {
-        if (service.addTrack(tracklistId, name, size, duration)) {
+        if (trackController.addTrack(tracklistId, name, size, duration)) {
             addError = false;
             return "redirect:/result";
         } else {
@@ -82,7 +89,7 @@ public class MainController {
 
     @GetMapping("/result/update/{trackId}")
     public String goToUpdate(Model model, @PathVariable(value = "trackId") int trackId) {
-        model.addAttribute("track", service.showTrackInfo(trackId));
+        model.addAttribute("track", trackController.getPlaceholders(trackId));
         model.addAttribute("upError", "");
         if (upError) {
             model.addAttribute("upError", "Wrong data");
@@ -92,7 +99,7 @@ public class MainController {
 
     @PostMapping("/result/update/{trackId}")
     public String Update(Model model, @PathVariable(value = "trackId") int trackId, @RequestParam String name, @RequestParam String size, @RequestParam String duration) {
-        if (service.updateTrackInfo(trackId, name, size, duration)) {
+        if (trackController.updateTrack(trackId, name, size, duration)) {
             upError = false;
             return "redirect:/result";
         } else {
@@ -103,14 +110,14 @@ public class MainController {
 
     @PostMapping("/result/remove/{trackId}")
     public String Remove(Model model, @PathVariable(value = "trackId") int trackId) {
-        service.deleteTrack(trackId);
+        trackController.deleteTrack(trackId);
         return "redirect:/result";
     }
 
     @PostMapping("/upload")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String handleFileUpload(Model model, @RequestParam("file") MultipartFile file) throws IOException, JAXBException {
-        if (!service.readXML(file)) {
+        if (!tracklistController.getTracklistInXML(file)) {
             xmlError = true;
         } else {
             xmlError = false;
@@ -120,7 +127,7 @@ public class MainController {
 
     @RequestMapping(value = "/download", method = RequestMethod.GET)
     public ResponseEntity<Object> downloadFile() throws IOException, JAXBException {
-        service.writeXML();
+        clientController.representUserInXML();
         String filename = "C:/Users/Алексей/Desktop/demo/src/main/resources/templates/outputFile.xml";
         File file = new File(filename);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));

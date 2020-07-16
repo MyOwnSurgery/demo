@@ -90,5 +90,8 @@ public class ClientDTO {
     public void setTracklists(List<TracklistDTO> tracklists){
         this.tracklists = tracklists;
     }
+    public List<TracklistDTO> getTracklists(){
+        return tracklists;
+    }
 }
 

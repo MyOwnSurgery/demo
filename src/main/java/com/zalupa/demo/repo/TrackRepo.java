@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface TrackRepo extends CrudRepository<Track, Integer>{
     List<Track> findByTracklistId(int id);
-    @Query(value = "select max(trackId) from Track")
-    int findMaxTrackId();
     Track findByTrackId(int id);
+
 }

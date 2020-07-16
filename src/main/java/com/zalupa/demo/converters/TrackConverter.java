@@ -31,12 +31,13 @@ public class TrackConverter{
 
     public List<Track> convertListToEntity(List<TrackDTO> dtoList){
         List<Track> entityList = new ArrayList<Track>();
-        for (TrackDTO dto:dtoList){
-            Track entity = convertToEntity(dto);
-            entityList.add(entity);
+        if (dtoList!=null) {
+            for (TrackDTO dto : dtoList) {
+                Track entity = convertToEntity(dto);
+                entityList.add(entity);
+            }
         }
         return entityList;
-
     }
     public List<TrackDTO> convertListToDTO(List<Track> entityList){
         List<TrackDTO> dtoList = new ArrayList<TrackDTO>();
