@@ -31,7 +31,6 @@ public class TracklistController {
     public boolean getTracklistInXML(MultipartFile file) {
         TracklistDTO tracklistDTO = service.readXML(file);
         if (checkTracklist(tracklistDTO)) {
-            System.out.println("Zaebis");
             if (service.save(tracklistDTO, clientController.getUser()) && trackController.saveTracks(tracklistDTO.getTracks(), tracklistDTO.getId())) {
                 return true;
             } else {

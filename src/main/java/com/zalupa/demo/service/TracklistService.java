@@ -52,7 +52,6 @@ public class TracklistService {
     public boolean checkTracklistItself(TracklistDTO tracklist) {
 
         if (tracklist != null) {
-            System.out.println(tracklist!=null);
             return true;
         } else return false;
 
