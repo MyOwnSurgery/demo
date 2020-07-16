@@ -15,26 +15,32 @@ public class TrackController {
     @Autowired
     private TrackService service;
 
-    public boolean addTrack(int tracklistId, String name, String size, String duration){
+    public boolean addTrack(int tracklistId, String name, String size, String duration) {
         return service.insert(tracklistId, name, size, duration);
     }
-    public TrackDTO getPlaceholders(int trackId){
+
+    public TrackDTO getPlaceholders(int trackId) {
         return service.showInfo(trackId);
     }
-    public boolean updateTrack(int trackId, String name, String size, String duration){
-        return service.updateInfo(trackId,name,size,duration);
+
+    public boolean updateTrack(int trackId, String name, String size, String duration) {
+        return service.updateInfo(trackId, name, size, duration);
     }
-    public void deleteTrack(int trackId){
+
+    public void deleteTrack(int trackId) {
         service.remove(trackId);
     }
-    public List<TrackDTO> findTracksByTracklistId(int tracklistId){
+
+    public List<TrackDTO> findTracksByTracklistId(int tracklistId) {
         return service.find(tracklistId);
     }
-    public boolean checkTracks(List<TrackDTO> tracks){
+
+    public boolean checkTracks(List<TrackDTO> tracks) {
 
         return service.checkList(tracks);
     }
-    public boolean saveTracks(List<TrackDTO> tracks, int id){
+
+    public boolean saveTracks(List<TrackDTO> tracks, int id) {
         return service.save(tracks, id);
     }
 }
