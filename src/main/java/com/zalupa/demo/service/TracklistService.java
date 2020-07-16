@@ -56,22 +56,26 @@ public class TracklistService {
         } else return false;
 
     }
-    public boolean save(TracklistDTO tracklist, ClientDTO client){
+
+    public boolean save(TracklistDTO tracklist, ClientDTO client) {
+        TracklistDTO tmp = new TracklistDTO();
         try {
-            TracklistDTO tmp = new TracklistDTO();
             tmp.setClient(client);
             tmp.setId(tracklist.getId());
             repo.save(converter.convertToEntity(tmp));
             return true;
-        }
-        catch (Exception e){
-e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
 
     }
-    public TracklistDTO setTracks(TracklistDTO tracklist, List<TrackDTO> tracks){
+
+    public TracklistDTO setTracks(TracklistDTO tracklist, List<TrackDTO> tracks) {
         tracklist.setTracks(tracks);
         return tracklist;
+    }
+    public void delete(int id){
+        repo.deleteById(id);
     }
 }

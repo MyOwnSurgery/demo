@@ -1,5 +1,6 @@
 package com.zalupa.demo.service;
 
+import com.zalupa.demo.controllers.TrackController;
 import com.zalupa.demo.converters.TrackConverter;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.entities.Track;
@@ -17,6 +18,8 @@ public class TrackService {
     @Autowired
     private TrackRepo repo;
 
+    @Autowired
+    private TrackController trackController;
 
     @Autowired
     private TrackConverter converter;
@@ -91,6 +94,7 @@ public class TrackService {
         }
         catch (Exception e){
             e.printStackTrace();
+            trackController.backUp(id);
             return false;
         }
         return true;

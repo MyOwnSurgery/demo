@@ -44,5 +44,7 @@ public class TracklistController {
 
         return service.checkTracklistItself(tracklistDTO) && trackController.checkTracks(tracklistDTO.getTracks());
     }
-
+ public void deleteTracklist(int id){
+        service.delete(id);
+ }
 }

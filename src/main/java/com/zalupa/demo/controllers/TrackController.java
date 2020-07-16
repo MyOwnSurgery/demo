@@ -5,6 +5,7 @@ import com.zalupa.demo.dto.ClientDTO;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.dto.TracklistDTO;
 import com.zalupa.demo.service.TrackService;
+import com.zalupa.demo.service.TracklistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,8 @@ import java.util.List;
 public class TrackController {
     @Autowired
     private TrackService service;
+    @Autowired
+    private TracklistController tracklistController;
 
     public boolean addTrack(int tracklistId, String name, String size, String duration) {
         return service.insert(tracklistId, name, size, duration);
@@ -42,5 +45,8 @@ public class TrackController {
 
     public boolean saveTracks(List<TrackDTO> tracks, int id) {
         return service.save(tracks, id);
+    }
+    public void backUp(int id){
+        tracklistController.deleteTracklist(id);
     }
 }
