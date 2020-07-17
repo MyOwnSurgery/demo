@@ -1,10 +1,10 @@
-package com.zalupa.demo.service;
+package com.zalupa.demo.services;
 
 import com.zalupa.demo.converters.impl.TrackConverter;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.entities.Track;
-import com.zalupa.demo.repo.TrackRepo;
-import com.zalupa.demo.service.impl.TrackService;
+import com.zalupa.demo.repos.TrackRepo;
+import com.zalupa.demo.services.impl.TrackService;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;

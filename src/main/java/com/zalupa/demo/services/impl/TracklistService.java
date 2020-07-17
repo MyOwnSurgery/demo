@@ -1,11 +1,11 @@
-package com.zalupa.demo.service.impl;
+package com.zalupa.demo.services.impl;
 
 import com.zalupa.demo.converters.impl.TracklistConverter;
 import com.zalupa.demo.dto.ClientDTO;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.dto.TracklistDTO;
-import com.zalupa.demo.repo.TracklistRepo;
-import com.zalupa.demo.service.TracklistServiceInterface;
+import com.zalupa.demo.repos.TracklistRepo;
+import com.zalupa.demo.services.TracklistServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

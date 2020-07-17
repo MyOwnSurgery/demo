@@ -1,8 +1,8 @@
-package com.zalupa.demo.service;
+package com.zalupa.demo.services;
 
 import com.zalupa.demo.converters.impl.ClientConverter;
-import com.zalupa.demo.repo.ClientRepo;
-import com.zalupa.demo.service.impl.ClientService;
+import com.zalupa.demo.repos.ClientRepo;
+import com.zalupa.demo.services.impl.ClientService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;

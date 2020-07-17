@@ -4,7 +4,7 @@ import com.zalupa.demo.controllers.ClientControllerInterface;
 import com.zalupa.demo.controllers.TracklistControllerInterface;
 import com.zalupa.demo.dto.ClientDTO;
 import com.zalupa.demo.dto.TracklistDTO;
-import com.zalupa.demo.service.ClientServiceInterface;
+import com.zalupa.demo.services.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

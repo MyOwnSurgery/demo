@@ -1,4 +1,4 @@
-package com.zalupa.demo.repo;
+package com.zalupa.demo.repos;
 
 
 import com.zalupa.demo.entities.Tracklist;

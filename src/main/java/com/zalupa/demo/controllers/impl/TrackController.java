@@ -3,7 +3,7 @@ package com.zalupa.demo.controllers.impl;
 
 import com.zalupa.demo.controllers.TrackControllerInterface;
 import com.zalupa.demo.dto.TrackDTO;
-import com.zalupa.demo.service.TrackServiceInterface;
+import com.zalupa.demo.services.TrackServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

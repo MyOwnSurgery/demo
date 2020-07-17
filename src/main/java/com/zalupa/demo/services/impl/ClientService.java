@@ -1,11 +1,11 @@
-package com.zalupa.demo.service.impl;
+package com.zalupa.demo.services.impl;
 
 import com.zalupa.demo.converters.impl.ClientConverter;
 import com.zalupa.demo.dto.ClientDTO;
 import com.zalupa.demo.dto.TracklistDTO;
 import com.zalupa.demo.entities.Client;
-import com.zalupa.demo.repo.ClientRepo;
-import com.zalupa.demo.service.ClientServiceInterface;
+import com.zalupa.demo.repos.ClientRepo;
+import com.zalupa.demo.services.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

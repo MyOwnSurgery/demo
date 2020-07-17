@@ -1,8 +1,7 @@
-package com.zalupa.demo.repo;
+package com.zalupa.demo.repos;
 
 
 import com.zalupa.demo.entities.Track;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

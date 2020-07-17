@@ -1,10 +1,10 @@
-package com.zalupa.demo.service.impl;
+package com.zalupa.demo.services.impl;
 
 import com.zalupa.demo.controllers.impl.TrackController;
 import com.zalupa.demo.converters.impl.TrackConverter;
 import com.zalupa.demo.dto.TrackDTO;
-import com.zalupa.demo.repo.TrackRepo;
-import com.zalupa.demo.service.TrackServiceInterface;
+import com.zalupa.demo.repos.TrackRepo;
+import com.zalupa.demo.services.TrackServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

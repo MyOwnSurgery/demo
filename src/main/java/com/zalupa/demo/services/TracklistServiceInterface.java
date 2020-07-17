@@ -1,4 +1,4 @@
-package com.zalupa.demo.service;
+package com.zalupa.demo.services;
 
 import com.zalupa.demo.dto.ClientDTO;
 import com.zalupa.demo.dto.TrackDTO;
