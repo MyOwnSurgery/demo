@@ -117,7 +117,7 @@ public class RestController {
     @PostMapping("/upload")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public String handleFileUpload(Model model, @RequestParam("file") MultipartFile file) throws IOException, JAXBException {
-        if (!tracklistController.setTracklistFromXML(file)) {
+        if (!tracklistController.addTracklistFromXML(file)) {
             xmlError = true;
         } else {
             xmlError = false;

@@ -28,7 +28,7 @@ public class TracklistController {
         return tracklists;
     }
 
-    public boolean setTracklistFromXML(MultipartFile file) {
+    public boolean addTracklistFromXML(MultipartFile file) {
         TracklistDTO tracklistDTO = service.readXML(file);
         if (checkTracklist(tracklistDTO)) {
             if (!service.save(tracklistDTO, clientController.getUser())) {

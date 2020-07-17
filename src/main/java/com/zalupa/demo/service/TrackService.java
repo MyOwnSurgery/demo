@@ -10,6 +10,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
+import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -89,8 +90,8 @@ public class TrackService {
         try{
             for (TrackDTO track : tracks){
                 track.setTracklistId(id);
-                repo.save(converter.convertToEntity(track));
             }
+            repo.saveAll(converter.convertListToEntity(tracks));
         }
         catch (Exception e){
             e.printStackTrace();
