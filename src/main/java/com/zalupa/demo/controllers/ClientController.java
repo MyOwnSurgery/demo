@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.List;
 
-public interface ClientControllerInterface {
+public interface ClientController {
     public ClientDTO validate(String login, String password);
     public String getUserName();
     public int getUserId();

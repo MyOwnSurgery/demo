@@ -4,7 +4,7 @@ import com.zalupa.demo.dto.TrackDTO;
 
 import java.util.List;
 
-public interface TrackControllerInterface {
+public interface TrackController {
     public boolean addTrack(int tracklistId, String name, String size, String duration);
     public TrackDTO getPlaceholders(int trackId);
     public boolean updateTrack(int trackId, String name, String size, String duration);

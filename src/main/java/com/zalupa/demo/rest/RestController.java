@@ -1,11 +1,8 @@
 package com.zalupa.demo.rest;
 
-import com.zalupa.demo.controllers.ClientControllerInterface;
-import com.zalupa.demo.controllers.TrackControllerInterface;
-import com.zalupa.demo.controllers.TracklistControllerInterface;
-import com.zalupa.demo.controllers.impl.ClientController;
-import com.zalupa.demo.controllers.impl.TrackController;
-import com.zalupa.demo.controllers.impl.TracklistController;
+import com.zalupa.demo.controllers.ClientController;
+import com.zalupa.demo.controllers.TrackController;
+import com.zalupa.demo.controllers.TracklistController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -23,11 +20,11 @@ import java.io.*;
 public class RestController {
 
     @Autowired
-    private ClientControllerInterface clientController;
+    private ClientController clientController;
     @Autowired
-    private TracklistControllerInterface tracklistController;
+    private TracklistController tracklistController;
     @Autowired
-    private TrackControllerInterface trackController;
+    private TrackController trackController;
 
 
     private boolean logError;
@@ -59,7 +56,7 @@ public class RestController {
     }
 
     @GetMapping("/result")
-    public String output(Model model) throws JAXBException, FileNotFoundException {
+    public String output(Model model) {
         model.addAttribute("xmlError", "");
         if (xmlError) {
             model.addAttribute("xmlError", "Smth wrong with your file");

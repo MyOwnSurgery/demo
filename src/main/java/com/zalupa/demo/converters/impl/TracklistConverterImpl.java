@@ -1,9 +1,7 @@
 package com.zalupa.demo.converters.impl;
-import com.zalupa.demo.converters.ClientConverterInterface;
-import com.zalupa.demo.converters.TrackConverterInterface;
-import com.zalupa.demo.converters.TracklistConverterInterface;
-import com.zalupa.demo.converters.impl.ClientConverter;
-import com.zalupa.demo.converters.impl.TrackConverter;
+import com.zalupa.demo.converters.ClientConverter;
+import com.zalupa.demo.converters.TrackConverter;
+import com.zalupa.demo.converters.TracklistConverter;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.dto.TracklistDTO;
 import com.zalupa.demo.entities.Track;
@@ -14,11 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class TracklistConverter implements TracklistConverterInterface {
+public class TracklistConverterImpl implements TracklistConverter {
     @Autowired
-    public ClientConverterInterface clientConverter;
+    public ClientConverter clientConverter;
     @Autowired
-    public TrackConverterInterface trackConverter;
+    public TrackConverter trackConverter;
 
     public Tracklist convertToEntity (TracklistDTO dto){
         Tracklist tracklist = new Tracklist();

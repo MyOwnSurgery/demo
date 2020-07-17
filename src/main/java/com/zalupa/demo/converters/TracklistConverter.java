@@ -5,7 +5,7 @@ import com.zalupa.demo.entities.Tracklist;
 
 import java.util.List;
 
-public interface TracklistConverterInterface {
+public interface TracklistConverter {
     public Tracklist convertToEntity (TracklistDTO dto);
     public TracklistDTO convertToDTO (Tracklist entity);
     public List<Tracklist> convertListToEntity(List<TracklistDTO> dtoList);

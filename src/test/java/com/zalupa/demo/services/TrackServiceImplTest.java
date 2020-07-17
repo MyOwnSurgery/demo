@@ -1,10 +1,10 @@
 package com.zalupa.demo.services;
 
-import com.zalupa.demo.converters.impl.TrackConverter;
+import com.zalupa.demo.converters.impl.TrackConverterImpl;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.entities.Track;
 import com.zalupa.demo.repos.TrackRepo;
-import com.zalupa.demo.services.impl.TrackService;
+import com.zalupa.demo.services.impl.TrackServiceImpl;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -12,16 +12,16 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-class TrackServiceTest {
+class TrackServiceImplTest {
     @Autowired
-    public TrackService service;
+    public TrackServiceImpl service;
 
     @Autowired
     @MockBean
     TrackRepo repo;
     @MockBean
     @Autowired
-    TrackConverter converter;
+    TrackConverterImpl converter;
 
     @Test
     void insert() {
@@ -33,7 +33,7 @@ class TrackServiceTest {
 
     @Test
     void showInfo() {
-        service.showInfo(1);
+        service.getInfo(1);
         Mockito.verify(converter, Mockito.times(1)).convertToDTO(ArgumentMatchers.any(Track.class));
     }
 

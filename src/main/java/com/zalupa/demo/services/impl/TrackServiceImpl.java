@@ -1,90 +1,68 @@
 package com.zalupa.demo.services.impl;
 
-import com.zalupa.demo.controllers.impl.TrackController;
-import com.zalupa.demo.converters.impl.TrackConverter;
+import com.zalupa.demo.controllers.impl.TrackControllerImpl;
+import com.zalupa.demo.converters.TrackConverter;
+import com.zalupa.demo.converters.impl.TrackConverterImpl;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.repos.TrackRepo;
-import com.zalupa.demo.services.TrackServiceInterface;
+import com.zalupa.demo.services.TrackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class TrackService implements TrackServiceInterface {
+public class TrackServiceImpl implements TrackService {
 
     @Autowired
     private TrackRepo repo;
 
     @Autowired
-    private TrackController trackController;
-
-    @Autowired
     private TrackConverter converter;
 
     public boolean insert(int tracklistId, String name, String size, String duration) {
-        if (!checkOne(name,size,duration)){
-            return false;
-        }
-        else {
+        try{
             TrackDTO track = new TrackDTO(tracklistId, name, Long.valueOf(size), Long.valueOf(duration));
             repo.save(converter.convertToEntity(track));
             return true;
         }
-    }
-    public boolean checkOne(String name, String size, String duration) {
-        long sizeVal;
-        long durVal;
-        try {
-            sizeVal = Long.valueOf(size);
-            durVal = Long.valueOf(duration);
-        } catch (IllegalArgumentException e) {
+        catch (Exception e){
             return false;
         }
-        return checkConstraints(name,sizeVal,durVal);
     }
-    public boolean checkConstraints(String name, long size, long duration){
-        if ((name != "") && ((size > 0) && (size < 10000)) && ((duration > 0) && (duration < 10000))) {
-            return true;
-        } else return false;
-    }
-    public TrackDTO showInfo(int trackId) {
+
+
+    public TrackDTO getInfo(int trackId) {
         TrackDTO track = converter.convertToDTO(repo.findByTrackId(trackId));
         return track;
     }
 
     public boolean updateInfo(int trackId, String name, String size, String duration) {
-        if (!checkOne(name,size,duration)){
-            return false;
-        }
-        else {
+        try {
             TrackDTO track = converter.convertToDTO(repo.findByTrackId(trackId));
             track.setDuration(Long.valueOf(duration));
             track.setSize(Long.valueOf(size));
             track.setName(name);
             repo.save(converter.convertToEntity(track));
-            return true;
         }
+        catch (Exception e){
+            return false;
+        }
+        return true;
+
     }
 
-    public void remove(int trackId) {
+    public void removeTrack(int trackId) {
         TrackDTO track = converter.convertToDTO(repo.findByTrackId(trackId));
         repo.delete(converter.convertToEntity(track));
     }
-    public List<TrackDTO> find(int tracklistId){
+
+    public List<TrackDTO> findTracks(int tracklistId){
         List<TrackDTO> tracks = converter.convertListToDTO(repo.findByTracklistId(tracklistId));
         return tracks;
     }
-    public boolean checkList(List<TrackDTO> tracks){
 
-        for (TrackDTO track : tracks){
-            if (!checkConstraints(track.getName(),track.getSize(),track.getDuration())) {
-                return false;
-            }
-        }
-        return true;
-    }
-    public boolean save(List<TrackDTO> tracks, int id){
+    public boolean addTracks(List<TrackDTO> tracks, int id){
         try{
             for (TrackDTO track : tracks){
                 track.setTracklistId(id);
