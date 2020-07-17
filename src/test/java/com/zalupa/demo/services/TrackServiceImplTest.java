@@ -1,5 +1,6 @@
 package com.zalupa.demo.services;
 
+import com.zalupa.demo.converters.TrackConverter;
 import com.zalupa.demo.converters.impl.TrackConverterImpl;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.entities.Track;
@@ -14,14 +15,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 class TrackServiceImplTest {
     @Autowired
-    public TrackServiceImpl service;
+    public TrackService service;
 
     @Autowired
     @MockBean
     TrackRepo repo;
     @MockBean
     @Autowired
-    TrackConverterImpl converter;
+    TrackConverter converter;
 
     @Test
     void insert() {

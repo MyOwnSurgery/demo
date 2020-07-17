@@ -1,5 +1,6 @@
 package com.zalupa.demo.services;
 
+import com.zalupa.demo.converters.ClientConverter;
 import com.zalupa.demo.converters.impl.ClientConverterImpl;
 import com.zalupa.demo.repos.ClientRepo;
 import com.zalupa.demo.services.impl.ClientServiceImpl;
@@ -10,12 +11,12 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 class ClientServiceImplTest {
     @Autowired
-    public ClientServiceImpl service;
+    public ClientService service;
     @Autowired
     @MockBean
     public ClientRepo repo;
     @Autowired
-    ClientConverterImpl converter;
+    ClientConverter converter;
     @Test
     void getByLoginAndPassword() {
         service.getByLoginAndPassword("user1", "1");
