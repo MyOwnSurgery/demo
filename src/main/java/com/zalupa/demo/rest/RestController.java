@@ -1,8 +1,11 @@
 package com.zalupa.demo.rest;
 
-import com.zalupa.demo.controllers.ClientController;
-import com.zalupa.demo.controllers.TrackController;
-import com.zalupa.demo.controllers.TracklistController;
+import com.zalupa.demo.controllers.ClientControllerInterface;
+import com.zalupa.demo.controllers.TrackControllerInterface;
+import com.zalupa.demo.controllers.TracklistControllerInterface;
+import com.zalupa.demo.controllers.impl.ClientController;
+import com.zalupa.demo.controllers.impl.TrackController;
+import com.zalupa.demo.controllers.impl.TracklistController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -20,11 +23,11 @@ import java.io.*;
 public class RestController {
 
     @Autowired
-    private ClientController clientController;
+    private ClientControllerInterface clientController;
     @Autowired
-    private TracklistController tracklistController;
+    private TracklistControllerInterface tracklistController;
     @Autowired
-    private TrackController trackController;
+    private TrackControllerInterface trackController;
 
 
     private boolean logError;

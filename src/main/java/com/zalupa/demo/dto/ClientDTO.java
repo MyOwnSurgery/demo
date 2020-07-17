@@ -1,26 +1,6 @@
 package com.zalupa.demo.dto;
 
-import com.zalupa.demo.converters.ClientConverter;
-import com.zalupa.demo.converters.TrackConverter;
-import com.zalupa.demo.converters.TracklistConverter;
-import com.zalupa.demo.entities.Client;
-import com.zalupa.demo.entities.Track;
-import com.zalupa.demo.entities.Tracklist;
-import com.zalupa.demo.repo.ClientRepo;
-import com.zalupa.demo.repo.TrackRepo;
-import com.zalupa.demo.repo.TracklistRepo;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.xml.bind.*;
 import javax.xml.bind.annotation.*;
-import java.io.*;
-import java.nio.file.Files;
-import java.sql.SQLException;
 import java.util.List;
 
 @XmlRootElement(name = "client")

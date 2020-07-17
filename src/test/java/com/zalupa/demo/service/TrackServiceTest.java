@@ -1,19 +1,16 @@
 package com.zalupa.demo.service;
 
-import com.zalupa.demo.converters.ClientConverter;
-import com.zalupa.demo.converters.TrackConverter;
+import com.zalupa.demo.converters.impl.TrackConverter;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.entities.Track;
-import com.zalupa.demo.repo.ClientRepo;
 import com.zalupa.demo.repo.TrackRepo;
+import com.zalupa.demo.service.impl.TrackService;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TrackServiceTest {
     @Autowired

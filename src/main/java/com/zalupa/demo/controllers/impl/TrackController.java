@@ -1,22 +1,18 @@
-package com.zalupa.demo.controllers;
+package com.zalupa.demo.controllers.impl;
 
 
-import com.zalupa.demo.dto.ClientDTO;
+import com.zalupa.demo.controllers.TrackControllerInterface;
 import com.zalupa.demo.dto.TrackDTO;
-import com.zalupa.demo.dto.TracklistDTO;
-import com.zalupa.demo.service.TrackService;
-import com.zalupa.demo.service.TracklistService;
+import com.zalupa.demo.service.TrackServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class TrackController {
+public class TrackController implements TrackControllerInterface {
     @Autowired
-    private TrackService service;
-    @Autowired
-    private TracklistController tracklistController;
+    private TrackServiceInterface service;
 
     public boolean addTrack(int tracklistId, String name, String size, String duration) {
         return service.insert(tracklistId, name, size, duration);

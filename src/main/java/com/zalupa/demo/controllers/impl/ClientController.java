@@ -1,9 +1,10 @@
-package com.zalupa.demo.controllers;
+package com.zalupa.demo.controllers.impl;
 
+import com.zalupa.demo.controllers.ClientControllerInterface;
+import com.zalupa.demo.controllers.TracklistControllerInterface;
 import com.zalupa.demo.dto.ClientDTO;
 import com.zalupa.demo.dto.TracklistDTO;
-import com.zalupa.demo.entities.Client;
-import com.zalupa.demo.service.ClientService;
+import com.zalupa.demo.service.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,11 +13,11 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 @Component
-public class ClientController {
+public class ClientController implements ClientControllerInterface {
     @Autowired
-    private ClientService service;
+    private ClientServiceInterface service;
     @Autowired
-    private TracklistController tracklistController;
+    private TracklistControllerInterface tracklistController;
 
     public ClientDTO validate(String login, String password) {
         return service.getByLoginAndPassword(login, password);

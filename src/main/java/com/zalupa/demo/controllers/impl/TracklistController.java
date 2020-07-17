@@ -1,7 +1,12 @@
-package com.zalupa.demo.controllers;
+package com.zalupa.demo.controllers.impl;
 
+import com.zalupa.demo.controllers.ClientControllerInterface;
+import com.zalupa.demo.controllers.TrackControllerInterface;
+import com.zalupa.demo.controllers.TracklistControllerInterface;
+import com.zalupa.demo.controllers.impl.ClientController;
+import com.zalupa.demo.controllers.impl.TrackController;
 import com.zalupa.demo.dto.TracklistDTO;
-import com.zalupa.demo.service.TracklistService;
+import com.zalupa.demo.service.TracklistServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,13 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @Component
-public class TracklistController {
+public class TracklistController implements TracklistControllerInterface {
     @Autowired
-    private ClientController clientController;
+    private ClientControllerInterface clientController;
     @Autowired
-    private TracklistService service;
+    private TracklistServiceInterface service;
     @Autowired
-    private TrackController trackController;
+    private TrackControllerInterface trackController;
 
     public List<TracklistDTO> getUserLists(int clientId) {
         return fillLists(service.getLists(clientId));

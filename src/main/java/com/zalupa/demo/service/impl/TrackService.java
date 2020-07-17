@@ -1,20 +1,17 @@
-package com.zalupa.demo.service;
+package com.zalupa.demo.service.impl;
 
-import com.zalupa.demo.controllers.TrackController;
-import com.zalupa.demo.converters.TrackConverter;
+import com.zalupa.demo.controllers.impl.TrackController;
+import com.zalupa.demo.converters.impl.TrackConverter;
 import com.zalupa.demo.dto.TrackDTO;
-import com.zalupa.demo.entities.Track;
 import com.zalupa.demo.repo.TrackRepo;
+import com.zalupa.demo.service.TrackServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
-import java.util.Iterator;
 import java.util.List;
 
 @Component
-public class TrackService {
+public class TrackService implements TrackServiceInterface {
 
     @Autowired
     private TrackRepo repo;
@@ -24,6 +21,7 @@ public class TrackService {
 
     @Autowired
     private TrackConverter converter;
+
     public boolean insert(int tracklistId, String name, String size, String duration) {
         if (!checkOne(name,size,duration)){
             return false;

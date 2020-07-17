@@ -1,5 +1,6 @@
-package com.zalupa.demo.converters;
+package com.zalupa.demo.converters.impl;
 
+import com.zalupa.demo.converters.TrackConverterInterface;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.entities.Track;
 import org.springframework.stereotype.Component;
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 @Component
-public class TrackConverter{
+public class TrackConverter implements TrackConverterInterface {
 
     public TrackDTO convertToDTO(Track track) {
         TrackDTO dto = new TrackDTO();

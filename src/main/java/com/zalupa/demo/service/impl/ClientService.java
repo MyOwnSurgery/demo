@@ -1,31 +1,23 @@
-package com.zalupa.demo.service;
+package com.zalupa.demo.service.impl;
 
-import com.zalupa.demo.converters.ClientConverter;
-import com.zalupa.demo.converters.TrackConverter;
-import com.zalupa.demo.converters.TracklistConverter;
+import com.zalupa.demo.converters.impl.ClientConverter;
 import com.zalupa.demo.dto.ClientDTO;
-import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.dto.TracklistDTO;
 import com.zalupa.demo.entities.Client;
-import com.zalupa.demo.entities.Tracklist;
 import com.zalupa.demo.repo.ClientRepo;
-import com.zalupa.demo.repo.TrackRepo;
-import com.zalupa.demo.repo.TracklistRepo;
+import com.zalupa.demo.service.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.*;
 import java.util.List;
 
 @Component
-public class ClientService {
+public class ClientService implements ClientServiceInterface {
     @Autowired
     private HttpSession session;
 

@@ -1,10 +1,11 @@
-package com.zalupa.demo.service;
+package com.zalupa.demo.service.impl;
 
-import com.zalupa.demo.converters.TracklistConverter;
+import com.zalupa.demo.converters.impl.TracklistConverter;
 import com.zalupa.demo.dto.ClientDTO;
 import com.zalupa.demo.dto.TrackDTO;
 import com.zalupa.demo.dto.TracklistDTO;
 import com.zalupa.demo.repo.TracklistRepo;
+import com.zalupa.demo.service.TracklistServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +18,7 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 @Component
-public class TracklistService {
+public class TracklistService implements TracklistServiceInterface {
     @Autowired
     private TracklistConverter converter;
     @Autowired
